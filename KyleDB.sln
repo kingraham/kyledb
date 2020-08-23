@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KyleDB", "KyleDB\KyleDB.csproj", "{66DFC456-623F-429F-A0E5-BF033291DB5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KyleDB.Core", "KyleDB.Core\KyleDB.Core.csproj", "{AFD61E19-6BCB-494B-8331-CEA692111DF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KyleDB.Tests", "KyleDB.Tests\KyleDB.Tests.csproj", "{E6BF1CC4-E965-4481-94B4-EC7E474BB74E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66DFC456-623F-429F-A0E5-BF033291DB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66DFC456-623F-429F-A0E5-BF033291DB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66DFC456-623F-429F-A0E5-BF033291DB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66DFC456-623F-429F-A0E5-BF033291DB5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD61E19-6BCB-494B-8331-CEA692111DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD61E19-6BCB-494B-8331-CEA692111DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD61E19-6BCB-494B-8331-CEA692111DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD61E19-6BCB-494B-8331-CEA692111DF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6BF1CC4-E965-4481-94B4-EC7E474BB74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6BF1CC4-E965-4481-94B4-EC7E474BB74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6BF1CC4-E965-4481-94B4-EC7E474BB74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6BF1CC4-E965-4481-94B4-EC7E474BB74E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EAB5D38A-6A18-4A27-BF04-34140CFEDDA5}
+	EndGlobalSection
+EndGlobal
