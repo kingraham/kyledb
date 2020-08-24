@@ -1,4 +1,5 @@
-﻿using KyleDB.Core.Serialization;
+﻿using KyleDB.Core.Abstraction.Serialization;
+using KyleDB.Core.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
@@ -28,6 +29,22 @@ namespace KyleDB.Tests.Serialization
         }
 
         [TestMethod]
+        public void ShouldHandleDate()
+        {
+            using (MemoryStream ms = new MemoryStream(new byte[] { 217, 185, 55 }))
+            using (BinaryReader read = new BinaryReader(ms))
+                Assert.AreEqual(new System.DateTime(9999, 12, 30), GetHandler().HandleDate(read));
+        }
+
+        [TestMethod]
+        public void ShouldHandleDateTime()
+        {
+            using (MemoryStream ms = new MemoryStream(new byte[] { 57, 246, 45, 23, 58, 59, 231, 3 }))
+            using (BinaryReader read = new BinaryReader(ms))
+                Assert.AreEqual(new System.DateTime(9999, 12, 31, 23, 58, 59, 999), GetHandler().HandleDateTime(read));            
+        }
+
+        [TestMethod]
         public void ShouldHandleInt()
         {
             using (MemoryStream ms = new MemoryStream(new byte[] { 0x4, 0x0, 0x0, 0x0 }))
@@ -51,6 +68,6 @@ namespace KyleDB.Tests.Serialization
                 Assert.AreEqual(3, GetHandler().HandleTinyInt(read));
         }
 
-        private DataTypeDeserializationHandler GetHandler() => new DataTypeDeserializationHandler();
+        private IDeserializationHandler GetHandler() => new DataTypeDeserializationHandler();
     }
 }

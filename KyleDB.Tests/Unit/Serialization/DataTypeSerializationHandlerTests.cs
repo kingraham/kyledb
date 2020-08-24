@@ -1,4 +1,5 @@
-﻿using KyleDB.Core.Serialization;
+﻿using KyleDB.Core.Abstraction.Serialization;
+using KyleDB.Core.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,28 @@ namespace KyleDB.Tests.Serialization
             {
                 GetHandler().HandleChar(write, 10, "hey");
                 AssertStream(ms, new char[] { 'h', 'e', 'y', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }.Select(c => (byte)c).ToArray());
+            }
+        }
+
+        [TestMethod]
+        public void ShouldHandleDate()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter write = new BinaryWriter(ms))
+            {
+                GetHandler().HandleDate(write, new System.DateTime(9999, 12, 31));
+                AssertStream(ms, new byte[] { 218, 185, 55 });
+            }
+        }
+
+        [TestMethod]
+        public void ShouldHandleDateTime()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter write = new BinaryWriter(ms))
+            {
+                GetHandler().HandleDateTime(write, new System.DateTime(9999, 12, 31, 23, 59, 59, 999));
+                AssertStream(ms, new byte[] { 57, 246, 45, 23, 59, 59, 231, 3 });
             }
         }
 
@@ -89,6 +112,6 @@ namespace KyleDB.Tests.Serialization
                 Assert.AreEqual(expected[i], buffer[i], $"Mismatch at byte {i}");
         }
 
-        private DataTypeSerializationHandler GetHandler() => new DataTypeSerializationHandler();
+        private ISerializationHandler GetHandler() => new DataTypeSerializationHandler();
     }
 }
