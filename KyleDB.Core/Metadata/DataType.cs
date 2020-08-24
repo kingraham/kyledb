@@ -4,7 +4,8 @@ using System.Text;
 
 namespace KyleDB.Core.Metadata
 {
-    public class DataType
+    public enum DataType
     {
+
     }
 }
