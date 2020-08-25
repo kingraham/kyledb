@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.IO;
 
 namespace KyleDB.Core.Abstraction.Serialization
@@ -12,6 +13,8 @@ namespace KyleDB.Core.Abstraction.Serialization
         DateTime HandleDate(BinaryReader reader);
 
         DateTime HandleDateTime(BinaryReader reader);
+
+        BigDecimal HandleDecimal(BinaryReader reader, int length, int exponent);
 
         int HandleInt(BinaryReader reader);
 

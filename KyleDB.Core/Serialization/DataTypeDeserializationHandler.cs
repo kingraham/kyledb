@@ -1,6 +1,8 @@
-﻿using KyleDB.Core.Abstraction.Serialization;
+﻿using Common;
+using KyleDB.Core.Abstraction.Serialization;
 using System;
 using System.IO;
+using System.Numerics;
 
 namespace KyleDB.Core.Serialization
 {
@@ -40,6 +42,8 @@ namespace KyleDB.Core.Serialization
                 .AddMilliseconds(reader.ReadInt16());
         }
 
+        public BigDecimal HandleDecimal(BinaryReader reader, int length, int exponent) => new BigDecimal(new BigInteger(reader.ReadBytes(length)), exponent);
+       
         public int HandleInt(BinaryReader reader) => reader.ReadInt32();
 
         public short HandleSmallInt(BinaryReader reader) => reader.ReadInt16();

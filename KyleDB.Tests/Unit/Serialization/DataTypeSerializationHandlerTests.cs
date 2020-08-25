@@ -1,4 +1,5 @@
-﻿using KyleDB.Core.Abstraction.Serialization;
+﻿using Common;
+using KyleDB.Core.Abstraction.Serialization;
 using KyleDB.Core.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
@@ -50,6 +51,32 @@ namespace KyleDB.Tests.Serialization
             {
                 GetHandler().HandleDateTime(write, new System.DateTime(9999, 12, 31, 23, 59, 59, 999));
                 AssertStream(ms, new byte[] { 57, 246, 45, 23, 59, 59, 231, 3 });
+            }
+        }
+
+        [DataTestMethod]
+        [DataRow("9.99", new byte[] { 231, 3 })] // scale (or exponent for BigDecimal) is embedded in the meta data, so the output should be the same regardless
+        [DataRow("999", new byte[] { 231, 3 })]
+        public void ShouldHandleDecimalNumeric(string value, byte[] expected)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter write = new BinaryWriter(ms))
+            {
+                GetHandler().HandleDecimal(write, new BigDecimal(decimal.Parse(value)));
+                AssertStream(ms, expected);
+            }
+        }
+
+        [DataTestMethod]
+        [DataRow("999999999999999999999999999999999999.99", new byte[] { 255, 255, 255, 255, 63, 34, 138, 9, 122, 196, 134, 90, 168, 76, 59, 75 })] // scale (or exponent for BigDecimal) is embedded in the meta data, so the output should be the same regardless
+        [DataRow("99999999999999999999999999999999999999", new byte[] { 255, 255, 255, 255, 63, 34, 138, 9, 122, 196, 134, 90, 168, 76, 59, 75 })]
+        public void ShouldHandleDecimalNumericLargeValues(string value, byte[] expected)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter write = new BinaryWriter(ms))
+            {
+                GetHandler().HandleDecimal(write, new BigDecimal(value));
+                AssertStream(ms, expected);
             }
         }
 

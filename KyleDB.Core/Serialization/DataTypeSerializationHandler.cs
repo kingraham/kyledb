@@ -1,4 +1,5 @@
-﻿using KyleDB.Core.Abstraction.Serialization;
+﻿using Common;
+using KyleDB.Core.Abstraction.Serialization;
 using System;
 using System.IO;
 
@@ -28,7 +29,7 @@ namespace KyleDB.Core.Serialization
 
         /// <summary>
         /// DateTime Handling is 8 bytes in SQL Server.
-        /// 
+        ///
         /// Year/Month/Day    Range is 1/1/1753 - 12/31/9999, Days -- 3 bytes for days since 1/1/1753
         /// Hour / Month / Second - 1 byte each
         /// Fractional - 2 bytes
@@ -42,6 +43,15 @@ namespace KyleDB.Core.Serialization
             writer.Write((byte)value.Second);
             writer.Write((short)value.Millisecond);
         }
+
+        /// <summary>
+        /// This works on normalized BigRational. Convert to BigInteger and then save.
+        /// In general, better space savings than SQL Server
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="scale"></param>
+        /// <param name="value"></param>
+        public void HandleDecimal(BinaryWriter writer, BigDecimal value) => writer.Write(value.Mantissa.ToByteArray());
 
         public void HandleInt(BinaryWriter writer, int value) => writer.Write(value);
 

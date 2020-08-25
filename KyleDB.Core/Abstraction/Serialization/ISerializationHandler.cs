@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.IO;
 
 namespace KyleDB.Core.Abstraction.Serialization
@@ -12,6 +13,8 @@ namespace KyleDB.Core.Abstraction.Serialization
         void HandleDate(BinaryWriter writer, DateTime value);
 
         void HandleDateTime(BinaryWriter writer, DateTime value);
+
+        void HandleDecimal(BinaryWriter writer, BigDecimal value);
 
         void HandleInt(BinaryWriter writer, int value);
 

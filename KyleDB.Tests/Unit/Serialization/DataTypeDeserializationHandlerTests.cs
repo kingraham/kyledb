@@ -43,6 +43,18 @@ namespace KyleDB.Tests.Serialization
             using (BinaryReader read = new BinaryReader(ms))
                 Assert.AreEqual(new System.DateTime(9999, 12, 31, 23, 58, 59, 999), GetHandler().HandleDateTime(read));            
         }
+        
+        [DataTestMethod]
+        [DataRow(new byte[] { 255, 255, 255, 255, 63, 34, 138, 9, 122, 196, 134, 90, 168, 76, 59, 75 }, -2, "99999999999999999999999999999999999999E-2")] // scale (or exponent for BigDecimal) is embedded in the meta data, so the output should be the same regardless
+        [DataRow(new byte[] { 255, 255, 255, 255, 63, 34, 138, 9, 122, 196, 134, 90, 168, 76, 59, 75 }, 0, "99999999999999999999999999999999999999E0")]
+        [DataRow(new byte[] { 231, 3 }, -2, "999E-2")] // scale (or exponent for BigDecimal) is embedded in the meta data, so the output should be the same regardless
+        [DataRow(new byte[] { 231, 3 }, 0, "999E0")]
+        public void ShouldHandleDecimalNumeric(byte[] bytes, int scale, string expected)
+        {
+            using (MemoryStream ms = new MemoryStream(bytes))
+            using (BinaryReader read = new BinaryReader(ms))
+                Assert.AreEqual(expected, GetHandler().HandleDecimal(read, bytes.Length, scale).ToString());
+        }
 
         [TestMethod]
         public void ShouldHandleInt()
